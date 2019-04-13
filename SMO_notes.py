@@ -7,12 +7,11 @@ from sklearn.metrics import accuracy_score
 
 
 class SMO:
-    def __init__(self, C, tol, max_passes, epochs, f):
+    def __init__(self, C, tol, max_passes, epochs):
         self.C = C
         self.tol = tol
         self.max_passes = max_passes
         self.epochs = epochs
-        self.f = f
 
     def __calculate_F_X(self, x):
         return (self.alphas * self.Y * (np.multiply(self.X, x).sum(axis = 1))).sum() + self.b
@@ -77,10 +76,8 @@ class SMO:
                     num_changed_alphas += 1
             if(epoch % 10 == 0):
                 y_pred = self.predict(self.X)
-                self.f.write("\n" + str(epoch))
-                self.f.write("\naccuracy = " + str(accuracy_score(self.Y, y_pred)))
 
-                print("epoch = ", epoch)
+                print(epoch)
                 print("accuracy = ", accuracy_score(self.Y, y_pred))
 
             if(num_changed_alphas == 0):
