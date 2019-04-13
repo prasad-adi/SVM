@@ -1,5 +1,4 @@
-from mnist2image.mnist import load_mnist
-from extract_HAAR import HaarFeatures
+
 import numpy as np
 from SMO_notes import SMO
 np.random.seed(42)
@@ -66,15 +65,6 @@ class SVM_Digits:
             print("Testing accuracy = ", accuracy_score(Y_test, multiclass_test_prediction))
             print("Training accuracy = ",  accuracy_score(Y_train, multiclass_train_prediction))
 
-def read_mnist():
-    X, Y = load_mnist()
-    main_indices = []
-    for i in range(10):
-        indices = np.where(Y == i)[0]
-        size = int(len(indices) * 0.2)
-        indices_20 = np.random.randint(0, len(indices), size=size)
-        main_indices.extend(indices[indices_20])
-    return X[main_indices], Y[main_indices]
 
 # X, Y = read_mnist()
 # haar = HaarFeatures(100)
