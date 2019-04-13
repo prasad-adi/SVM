@@ -80,7 +80,7 @@ class SMO:
                 self.f.write("\n" + str(epoch))
                 self.f.write("\naccuracy = " + str(accuracy_score(self.Y, y_pred)))
 
-                print(epoch)
+                print("epoch = ", epoch)
                 print("accuracy = ", accuracy_score(self.Y, y_pred))
 
             if(num_changed_alphas == 0):
