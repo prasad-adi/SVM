@@ -1,4 +1,5 @@
-
+from mnist2image.mnist import load_mnist
+from extract_HAAR import HaarFeatures
 import numpy as np
 from SMO_notes import SMO
 np.random.seed(42)
@@ -12,7 +13,7 @@ class SVM_Digits:
         Y = np.loadtxt("./labels20.txt")
         data = np.c_[X, Y]
         np.random.shuffle(data)
-        train_size = int(data.shape[0] * 0.8)
+        train_size = int(data.shape[0] * 0.9)
         X_train = data[:train_size, :-1]
         X_test = data[train_size:, :-1]
         Y_train = data[:train_size, -1]
@@ -47,12 +48,12 @@ class SVM_Digits:
                     y_pred_train2, y_pred_test2 = ray.get(Id3)
                     y_pred_train3, y_pred_test3 = ray.get(Id4)
                     y_pred_train4, y_pred_test4 = ray.get(Id5)
-    
+
                     train_predictions = self.append(train_predictions, y_pred_train0, y_pred_train1, y_pred_train2, y_pred_train3, y_pred_train4)
                     test_predictions = self.append(test_predictions, y_pred_test0, y_pred_test1, y_pred_test2, y_pred_test3, y_pred_test4)
                     i += 5
-            multiclass_train_prediction = np.argmax(train_predictions, axis=1)
-            multiclass_test_prediction = np.argmax(test_predictions, axis = 1)
+            multiclass_train_prediction = np.argmax(train_predictions[:,1:], axis=1)
+            multiclass_test_prediction = np.argmax(test_predictions[:,1:], axis = 1)
             f.write("Testing accuracy =  " + str(accuracy_score(self.Y_test, multiclass_test_prediction)))
             f.write("Training_accuracy = " + str(accuracy_score(self.Y_train, multiclass_train_prediction)))
             print("Testing accuracy = ", accuracy_score(self.Y_test, multiclass_test_prediction))
