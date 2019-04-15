@@ -1,5 +1,3 @@
-from mnist2image.mnist import load_mnist
-from extract_HAAR import HaarFeatures
 import numpy as np
 from SMO_notes import SMO
 np.random.seed(42)
