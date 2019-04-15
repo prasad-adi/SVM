@@ -8,10 +8,10 @@ import zipfile
 
 class SVM_Digits:
     def read_data(self):
-#         with zipfile.ZipFile("./features20.txt.zip","r") as zip_ref:
-#             zip_ref.extractall("./")
-        X = np.loadtxt("./features20.txt")
-        Y = np.loadtxt("./labels20.txt")
+        with zipfile.ZipFile("./features30.txt.zip","r") as zip_ref:
+            zip_ref.extractall("./")
+        X = np.loadtxt("./features30.txt")
+        Y = np.loadtxt("./labels30.txt")
         data = np.c_[X, Y]
         np.random.shuffle(data)
         train_size = int(data.shape[0] * 0.8)
@@ -63,7 +63,7 @@ class SVM_Digits:
 @ray.remote
 def parallel(digits, X_train, Y_train, X_test, Y_test, i):
     temp_Y_train, temp_Y_test = digits.get_new_labels(Y_train, Y_test, i)
-    svm_smo = SMO(C=1, tol=0.01, max_passes=100, epochs=10)
+    svm_smo = SMO(C=1, tol=0.01, max_passes=100, epochs=50)
     svm_smo.fit(X_train, temp_Y_train)
     y_pred_train = svm_smo.predict_scores(X_train).reshape(Y_train.shape[0], 1)
     y_pred_test = svm_smo.predict_scores(X_test).reshape(Y_test.shape[0], 1)
