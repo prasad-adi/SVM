@@ -8,7 +8,7 @@ import zipfile
 
 class SVM_Digits:
     def read_data(self):
-        with zipfile.ZipFile("./features50.txt.zip","r") as zip_ref:
+        with zipfile.ZipFile("./features20.txt.zip","r") as zip_ref:
             zip_ref.extractall("./")
         X = np.loadtxt("./features20.txt")
         Y = np.loadtxt("./labels20.txt")
