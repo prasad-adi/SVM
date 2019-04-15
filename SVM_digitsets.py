@@ -10,8 +10,8 @@ class SVM_Digits:
     def read_data(self):
         with zipfile.ZipFile("./features50.txt.zip","r") as zip_ref:
             zip_ref.extractall("./")
-        X = np.loadtxt("./features50.txt")
-        Y = np.loadtxt("./labels50.txt")
+        X = np.loadtxt("./features30.txt")
+        Y = np.loadtxt("./labels30.txt")
         data = np.c_[X, Y]
         np.random.shuffle(data)
         train_size = int(data.shape[0] * 0.8)
