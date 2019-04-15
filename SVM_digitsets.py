@@ -1,18 +1,22 @@
-
+from mnist2image.mnist import load_mnist
+from extract_HAAR import HaarFeatures
 import numpy as np
 from SMO_notes import SMO
 np.random.seed(42)
 import ray
 from  sklearn.metrics import accuracy_score
 ray.init()
+import zipfile
 
 class SVM_Digits:
     def read_data(self):
-        X = np.loadtxt("./features20.txt")
-        Y = np.loadtxt("./labels20.txt")
+        with zipfile.ZipFile("./features50.txt.zip","r") as zip_ref:
+            zip_ref.extractall("./")
+        X = np.loadtxt("./features50.txt")
+        Y = np.loadtxt("./labels50.txt")
         data = np.c_[X, Y]
         np.random.shuffle(data)
-        train_size = int(data.shape[0] * 0.9)
+        train_size = int(data.shape[0] * 0.8)
         X_train = data[:train_size, :-1]
         X_test = data[train_size:, :-1]
         Y_train = data[:train_size, -1]
@@ -72,7 +76,7 @@ def read_mnist():
     main_indices = []
     for i in range(10):
         indices = np.where(Y == i)[0]
-        size = int(len(indices) * 0.2)
+        size = int(len(indices) * 0.5)
         indices_20 = np.random.randint(0, len(indices), size=size)
         main_indices.extend(indices[indices_20])
     return X[main_indices], Y[main_indices]
@@ -80,8 +84,8 @@ def read_mnist():
 # X, Y = read_mnist()
 # haar = HaarFeatures(100)
 # features = haar.getFeatures(X)
-# np.savetxt("./features20.txt", features)
-# np.savetxt("./labels20.txt", Y)
+# np.savetxt("./features50.txt", features)
+# np.savetxt("./labels50.txt", Y)
 
 digits = SVM_Digits()
 digits.run()
