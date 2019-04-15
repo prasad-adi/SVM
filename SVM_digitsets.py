@@ -63,7 +63,7 @@ class SVM_Digits:
 @ray.remote
 def parallel(digits, X_train, Y_train, X_test, Y_test, i):
     temp_Y_train, temp_Y_test = digits.get_new_labels(Y_train, Y_test, i)
-    svm_smo = SMO(C=0.01, tol=0.01, max_passes=100, epochs=1)
+    svm_smo = SMO(C=0.01, tol=0.01, max_passes=100, epochs=2)
     svm_smo.fit(X_train, temp_Y_train)
     y_pred_train = svm_smo.predict_scores(X_train).reshape(Y_train.shape[0], 1)
     y_pred_test = svm_smo.predict_scores(X_test).reshape(Y_test.shape[0], 1)
