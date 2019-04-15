@@ -1,4 +1,5 @@
 import numpy as np
+from sklearn.preprocessing import StandardScaler
 from SMO_notes import SMO
 np.random.seed(42)
 import ray
@@ -12,6 +13,8 @@ class SVM_Digits:
             zip_ref.extractall("./")
         X = np.loadtxt("./features30.txt")
         Y = np.loadtxt("./labels30.txt")
+        scaler = StandardScaler()
+        X = scaler.fit_transform(X)
         data = np.c_[X, Y]
         np.random.shuffle(data)
         train_size = int(data.shape[0] * 0.8)
