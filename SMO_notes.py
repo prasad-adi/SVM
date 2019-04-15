@@ -74,7 +74,7 @@ class SMO:
                     b2 = self.b - E_j - (self.Y[i] * (self.alphas[i] - alpha_i_old) * np.dot(self.X[i], self.X[j])) - (self.Y[j] * (self.alphas[j] - alpha_j_old) * np.dot(self.X[j], self.X[j]))
                     self.b = self.__get_b(b1,b2, self.alphas,i,j)
                     num_changed_alphas += 1
-            if(epoch % 10 == 0):
+            if(epoch % 1 == 0):
                 y_pred = self.predict(self.X)
 
                 print(epoch)
